@@ -1,8 +1,8 @@
-var app = angular.module('flapperNews', []);
+var app = angular.module('flapperNews', ['ui-router']);
 
 app.factory('posts', [function () {
   var o = {
-    posts: []
+    posts: [] //any change made to $scope.posts in controller will be stored in this service and available to any other module that injects the posts service
   };
   return o;
 }]);
