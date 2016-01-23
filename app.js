@@ -23,4 +23,18 @@ app.controller('MainCtrl', [
     };
   }]);
 
+app.config([
+  '$stateProvider',
+  '$urlRouteProvider',
+  function ($stateProvider, $urlRouteProvider) {
+
+    $stateProvider.state('home', {
+      url: '/home',
+      templateUrl: '/home.html',
+      controller: 'MainCtrl'
+    });
+
+    $urlRouteProvider.otherwise('home');
+  }]);
+
 // $scope is the bridge between controller and template; to make something available in template, bind it to $scope
