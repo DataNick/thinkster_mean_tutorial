@@ -1,6 +1,27 @@
-var app = angular.module('flapperNews', ['ui-router']);
+var app = angular.module('flapperNews', ['ui.router']);
 
-app.factory('posts', [function () {
+app.config([
+  '$stateProvider',
+  '$urlRouteProvider',
+
+  function ($stateProvider, $urlRouteProvider) {
+
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: '/home.html',
+        controller: 'MainCtrl'
+      })
+      .state('posts', {
+        url: '/posts/{id}',
+        templateUrl: '/posts.html',
+        controller: 'PostsCtrl'
+      });
+
+    $urlRouteProvider.otherwise('home');
+  }]);
+
+app.factory('posts', [function() {
   var o = {
     posts: [] //any change made to $scope.posts in controller will be stored in this service and available to any other module that injects the posts service
   };
@@ -23,18 +44,13 @@ app.controller('MainCtrl', [
     };
   }]);
 
-app.config([
-  '$stateProvider',
-  '$urlRouteProvider',
-  function ($stateProvider, $urlRouteProvider) {
+app.controller('PostsCtrl', [
+  '$scope',
+  '$stateParams',
+  'posts',
+  function ($scope, $stateParams, posts) {
 
-    $stateProvider.state('home', {
-      url: '/home',
-      templateUrl: '/home.html',
-      controller: 'MainCtrl'
-    });
-
-    $urlRouteProvider.otherwise('home');
   }]);
+
 
 // $scope is the bridge between controller and template; to make something available in template, bind it to $scope
