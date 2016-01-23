@@ -35,7 +35,15 @@ app.controller('MainCtrl', [
     $scope.posts = posts.posts;
     $scope.addPost = function () {
       if(!$scope.title || $scope.title === '') { return; }
-      $scope.posts.push({ title: $scope.title, link: $scope.link, upvotes: 0 });
+      $scope.posts.push({
+        title: $scope.title,
+        link: $scope.link,
+        upvotes: 0,
+        comments: [
+          {author: 'Joe', body: 'Cool post!', upvotes: 0},
+          {author: 'Bod', body: 'Nice post!', upvotes: 0}
+          ]
+        });
       $scope.title = '';
       $scope.link = '';
     };
