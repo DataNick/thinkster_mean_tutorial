@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 
 var app = express();
 require('.models/Posts')
+requre('.models/Comments')
 mongoose.connect('mongodb://localhost/news')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
