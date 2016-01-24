@@ -41,3 +41,7 @@ router.param('post', function (req, res, next, id) {
     return next();
   });
 });
+
+router.get('/posts/:post', function (req, res){
+  res.json(req.post);
+});
