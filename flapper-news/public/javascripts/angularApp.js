@@ -21,7 +21,7 @@ app.config([
     $urlRouterProvider.otherwise('home');
   }]);
 
-app.factory('posts', [function() {
+app.factory('posts', ['$http', function($http) {
   var o = {
     posts: [] //any change made to $scope.posts in controller will be stored in this service and available to any other module that injects the posts service
   };
