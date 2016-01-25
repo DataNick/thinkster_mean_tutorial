@@ -31,9 +31,19 @@ app.factory('posts', ['$http', function($http) {
     posts: [] //any change made to $scope.posts in controller will be stored in this service and available to any other module that injects the posts service
   };
 
+  // query the '/posts' route and bind a function when request returns
+  // get back a list and copy to posts object using angular.copy() - see index.ejs
   o.getAll = function() {
-    return $http.get('/posts').success(function(data) {
+    return $http.get('/posts').success(function (data) {
       angular.copy(data, o.posts);
+    });
+  };
+
+  // uses router.post in index.js to post a new Post model to mongoDB
+  // when $http gets success, it adds this post to the posts object in local factory
+  o.create = function (post) {
+    return $http.post('/posts', post).success(function (data) {
+      o.posts.push(data);
     });
   };
 
