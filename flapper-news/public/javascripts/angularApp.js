@@ -42,9 +42,17 @@ app.factory('posts', ['$http', function($http) {
   // uses router.post in index.js to post a new Post model to mongoDB
   // when $http gets success, it adds this post to the posts object in local factory
   o.create = function (post) {
+    //persistent data
     return $http.post('/posts', post).success(function (data) {
       o.posts.push(data);
     });
+  };
+
+  o.upvote = function (post) {
+    return $http.put('/posts/' + post._id + '/upvote')
+      .success(function (data) {
+        post.upvotes += 1;
+      });
   };
 
   return o;
@@ -57,6 +65,7 @@ app.controller('MainCtrl', [
     $scope.posts = posts.posts;
     $scope.addPost = function () {
       if(!$scope.title || $scope.title === '') { return; }
+      //persistent data
       posts.create({
         title: $scope.title,
         link: $scope.link,
@@ -70,7 +79,7 @@ app.controller('MainCtrl', [
       $scope.link = '';
     };
     $scope.incrementUpvotes = function (post) {
-      post.upvotes += 1;
+      posts.upvote(post);
     };
   }]);
 
