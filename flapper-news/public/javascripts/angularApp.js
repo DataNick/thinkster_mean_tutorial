@@ -25,6 +25,13 @@ app.factory('posts', [function() {
   var o = {
     posts: [] //any change made to $scope.posts in controller will be stored in this service and available to any other module that injects the posts service
   };
+
+  o.getAll = function() {
+    return $http.get('/posts').success(function(data) {
+      angular.copy(data, o.posts);
+    });
+  };
+
   return o;
 }]);
 
