@@ -55,9 +55,13 @@ router.param('comment', function (req, res, next, id) {
 });
 
 router.put('/posts/:post/comments/:comment/upvote', function (req, res, next) {
+  console.log("inside route");
   req.comment.upvote(function (err, comment){
-    if (err) {return next(err); }
-
+    if (err) {
+      console.log("err in route");
+      return next(err);
+    }
+    console.log("responded with json");
     res.json(comment);
   });
 });
@@ -71,9 +75,13 @@ router.get('/posts/:post', function (req, res, next){
 });
 
 router.put('/posts/:post/upvote', function (req, res, next) {
+  console.log("inside route");
   req.post.upvote(function (err, post){
-    if (err) {return next(err); }
-
+    if (err) {
+      console.log("err in route");
+      return next(err);
+    }
+    console.log("responded with json");
     res.json(post);
   });
 });
