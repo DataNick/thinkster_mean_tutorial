@@ -70,6 +70,14 @@ app.factory('posts', ['$http', function($http) {
     return $http.post('/posts/' + id + '/comments', comment);
   };
 
+  o.upvoteComment = function(post, comment) {
+    console.log("checking o.upvote");
+    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
+      .success(function(data) {
+        comment.upvotes += 1;
+      });
+  };
+
   return o;
 }]);
 
@@ -114,6 +122,11 @@ app.controller('PostsCtrl', [
       });
       $scope.body = '';
     };
+    $scope.incrementUpvotes = function(comment) {
+      console.log('comment upvote');
+      posts.upvoteComment(post, comment);
+    };
+
   }]);
 
 
