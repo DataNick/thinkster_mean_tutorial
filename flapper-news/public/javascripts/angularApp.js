@@ -1,4 +1,5 @@
 var app = angular.module('flapperNews', ['ui.router']);
+//ui-router helps to deal with multiple views and controller
 
 app.config([
   '$stateProvider',
@@ -85,6 +86,7 @@ app.controller('MainCtrl', [
   '$scope', 'posts',
   function ($scope, posts) {
     $scope.test = 'Hello. I\'m listening';
+    // any change made to $scope.posts will be stored in the service and accessible by any other module that injects the posts service
     $scope.posts = posts.posts;
     $scope.addPost = function () {
       if(!$scope.title || $scope.title === '') { return; }
